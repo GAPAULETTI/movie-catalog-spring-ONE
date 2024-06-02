@@ -3,6 +3,8 @@ package com.aluracursos.screenmatch;
 import com.aluracursos.screenmatch.models.DataSerie;
 import com.aluracursos.screenmatch.models.Episodio;
 import com.aluracursos.screenmatch.models.Temporadas;
+import com.aluracursos.screenmatch.principal.EjemploStream;
+import com.aluracursos.screenmatch.principal.Principal;
 import com.aluracursos.screenmatch.services.APIData;
 import com.aluracursos.screenmatch.services.ConvertData;
 import org.springframework.boot.CommandLineRunner;
@@ -21,26 +23,15 @@ public class ScreenmatchApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		var APIData = new APIData();
-		var json = APIData.obtenerDatos("http://www.omdbapi.com/?t=game+of+thrones&apikey=3558db");
-		System.out.println(json);
 
-		ConvertData conversor = new ConvertData();
-		var datos = conversor.obtenerDatos(json, DataSerie.class);
-		System.out.println(datos);
 
-		json = APIData.obtenerDatos("https://www.omdbapi.com/?t=game+of+thrones&Season=1&episode=1&apikey=b622ec3b");
-		Episodio episodio = conversor.obtenerDatos(json, Episodio.class);
-		System.out.println(episodio);
+		/*EjemploStream ejemplo1 = new EjemploStream();
+		ejemplo1.muestraEjempo();*/
 
-		List<Temporadas> temporadas = new ArrayList<>();
-		for (int i = 1; i < datos.totalDeTemporadas() ; i++) {
-			json = APIData.obtenerDatos("https://www.omdbapi.com/?t=game+of+thrones&Season="+i+"&apikey=b622ec3b");
+		Principal principal = new Principal();
+		principal.mostrarMenu();
 
-			var datosTemporadas = conversor.obtenerDatos(json, Temporadas.class);
-			temporadas.add(datosTemporadas);
-		}
-		temporadas.forEach(System.out::println);
+
 
 	}
 }
